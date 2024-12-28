@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Pengiriman Pupuk</title>
+    <link rel="stylesheet" href="styles/style.css">
+
+</head>
+<body>
+    <div class="dashboard-container">
+        <main class="main-content">
+            <h1>Riwayat Pengiriman Pupuk</h1>
+            <table class="shipment-history">
+                <thead>
+                    <tr>
+                        <th>TANGGAL</th>
+                        <th>SUPIR</th>
+                        <th>TUJUAN</th>
+                        <th>INFORMASI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>12 Januari 2025</td>
+                        <td>Slamet</td>
+                        <td>Demak</td>
+                        <td><a href="#" class="detail-link" data-id="1">Detail</a></td>
+                    </tr>
+                    <tr>
+                        <td>9 Januari 2025</td>
+                        <td>Tejo</td>
+                        <td>Semarang</td>
+                        <td><a href="#" class="detail-link" data-id="2">Detail</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <!-- Modal Laporan -->
+    <div id="modalLaporan" class="modal hidden">
+    <div class="modal-content">
+        <h2>LAPORAN</h2>
+        <table class="report-table">
+            <tbody id="reportContent">
+                <!-- Data akan dimuat di sini -->
+            </tbody>
+        </table>
+        <button id="closeModalButton" class="close-button">Close</button>
+    </div>
+</div>
+
+
+    <footer class="bottom-menu">
+        <div class="menu-grid">
+            <div class="menu-item"><a href="tambah-pekerjaan-baru.html">Tambah Pekerjaan Baru</a></div>
+            <div class="menu-item active"><a href="riwayat-pengiriman-pupuk.html">Riwayat Pengiriman Pupuk</a></div>
+            <div class="menu-item"><a href="daftar-karyawan.html">Daftar Karyawan</a></div>
+            <div class="menu-item"><a href="daftar-penarikan-gaji.html">Daftar Penarikan Gaji</a></div>
+        </div>
+        <a href="index.html" class="logout-button">
+            <img src="styles/images/logout.png" alt="Logout">
+        </a>
+    </footer>
+    <script src="scripts/riwayat.js"></script>
+</body>
+</html>

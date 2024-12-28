@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pekerjaan Aktif</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Pekerjaan Aktif</h2>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>TRUCK</th>
+                    <th>NOPOL</th>
+                    <th>ALAMAT KANDANG</th>
+                    <th>LOKASI TUJUAN</th>
+                    <th>TANGGAL</th>
+                    <th>BANYAK/KARUNG</th>
+                    <th>AKSI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MITSUBISHI</td>
+                    <td>K 1212 AB</td>
+                    <td>Demak</td>
+                    <td>Salatiga</td>
+                    <td>19/12/2024</td>
+                    <td>25</td>
+                    <td>
+                        <span class="selesai-btn">Selesai</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Popup Konfirmasi -->
+    <div id="konfirmasi-popup" class="popup">
+        <div class="popup-content">
+            <h3>Peringatan !!</h3>
+            <p>Apakah Anda Sudah Yakin Pekerjaan Sudah Selesai?</p>
+            <div class="popup-buttons">
+                <button id="batal-btn">Batal</button>
+                <button id="ya-btn">Ya</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Form Biaya -->
+    <div id="form-popup" class="popup">
+        <div class="popup-content">
+            <h3>Form Biaya Operasional</h3>
+            <div class="form-group">
+                <label>Total Pupuk</label>
+                <input type="text" value="25" disabled>
+            </div>
+            <div class="form-group">
+                <label>Uang Makan</label>
+                <input type="number" id="solar-input">
+            </div>
+            <div class="form-group">
+                <label>Uang Bensin</label>
+                <input type="number" id="tol-input">
+            </div>
+            <div class="form-group">
+                <label>Uang Tol</label>
+                <input type="number" id="lain-input">
+            </div>
+            <div class="popup-buttons">
+                <button id="form-batal-btn">Batal</button>
+                <button id="form-ya-btn">Ya</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Sukses -->
+    <div id="sukses-popup" class="popup">
+        <div class="popup-content">
+            <h3>Sukses</h3>
+            <p>Pekerjaan Berhasil Diselesaikan</p>
+            <div class="popup-buttons">
+                <button id="continue-btn">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+  <footer class="bottom-menu">
+    <div class="menu-grid">
+      <div class="menu-item"><a href="home.html">Home</a></div>
+      <div class="menu-item"><a href="daftar-pekerjaan-baru.html">Daftar Pekerjaan Baru</a></div>
+      <div class="menu-item active"><a href="pekerjaan-aktif.html">Pekerjaan Aktif</a></div>
+    </div>
+    <a href="index.html" class="logout-button">
+      <img src="styles/images/logout.png" alt="Logout">
+    </a>
+  </footer>
+
+    <script src="scripts/pekerjaan-aktif.js"></script>
+</body>
+</html>

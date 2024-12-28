@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Penarikan Gaji</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <main class="main-content">
+            <h1>Daftar Penarikan Gaji</h1>
+            <table class="salary-table">
+                <thead>
+                    <tr>
+                        <th>NAMA</th>
+                        <th>STATUS</th>
+                        <th>RINCIAN</th>
+                    </tr>
+                </thead>
+                <tbody id="salaryTableBody">
+                    <tr>
+                        <td>Slamet</td>
+                        <td>Meminta Penarikan</td>
+                        <td><button class="detail-button" data-id="1">Detail</button></td>
+                    </tr>
+                    <tr>
+                        <td>Tejo</td>
+                        <td>Meminta Penarikan</td>
+                        <td><button class="detail-button" data-id="2">Detail</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <!-- Modal Detail Penarikan -->
+    <div id="withdrawalModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>RINCIAN</h2>
+            <p><strong>Nama:</strong> <span id="nama"></span></p>
+            <p><strong>Bank:</strong> <span id="bank"></span></p>
+            <p><strong>No. Rek.:</strong> <span id="norek"></span></p>
+            <p><strong>Gaji:</strong> <span id="gaji"></span></p>
+            <button id="closeModalButton" class="close-button">Close</button>
+            <button id="confirmButton" class="confirm-button">Kirim</button>
+        </div>
+    </div>
+
+    <!-- Popup Success -->
+    <div id="successPopup" class="popup hidden">
+        <div class="popup-content">
+            <span class="popup-icon">✔</span>
+            <h2>SUCCESS!</h2>
+            <p>Proses Pengiriman Upah Berhasil</p>
+            <button id="continueButton">Continue</button>
+        </div>
+    </div>
+
+    <footer class="bottom-menu">
+        <div class="menu-grid">
+            <div class="menu-item"><a href="tambah-pekerjaan-baru.html">Tambah Pekerjaan Baru</a></div>
+            <div class="menu-item"><a href="riwayat-pengiriman-pupuk.html">Riwayat Pengiriman Pupuk</a></div>
+            <div class="menu-item"><a href="daftar-karyawan.html">Daftar Karyawan</a></div>
+            <div class="menu-item active"><a href="daftar-penarikan-gaji.html">Daftar Penarikan Gaji</a></div>
+        </div>
+        <a href="index.html" class="logout-button">
+            <img src="styles/images/logout.png" alt="Logout">
+        </a>
+    </footer>
+
+    <script src="scripts/penarikan-gaji.js"></script>
+</body>
+</html>

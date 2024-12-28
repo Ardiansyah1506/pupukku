@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <main class="main-content">
+            <div class="home-container">
+                <img src="styles/images/avatar.png" alt="Avatar" class="avatar">
+                <h2>Halo, Selamat Datang!</h2>
+                <p>Saldo Upah Anda:</p>
+                <h3 id="saldo">Rp. 500000</h3>
+                <button id="requestButton" class="request-button">Permintaan Penarikan</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Popup Form -->
+    <div id="withdrawalFormModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>RINCIAN</h2>
+            <label for="bank">Bank</label>
+            <input type="text" id="bank" placeholder="Masukkan Nama Bank">
+            <label for="norek">Nomor Rekening</label>
+            <input type="text" id="norek" placeholder="Masukkan Nomor Rekening">
+            <label for="name">Nama</label>
+            <input type="text" id="name" placeholder="Masukkan Nama">
+            <label for="amount">Jumlah</label>
+            <input type="text" id="amount" placeholder="Masukkan Jumlah">
+            <button id="closeFormButton" class="close-button">Close</button>
+            <button id="sendRequestButton" class="confirm-button">Kirim</button>
+        </div>
+    </div>
+
+    <!-- Popup Success -->
+    <div id="successPopup" class="popup hidden">
+        <div class="popup-content">
+            <span class="popup-icon">✔</span>
+            <h2>SUCCESS!</h2>
+            <p>Proses Permintaan Penarikan Upah Berhasil</p>
+            <button id="continueButton" class="popup-content button">Continue</button>
+        </div>
+    </div>
+
+    <footer class="bottom-menu">
+        <div class="menu-grid">
+            <div class="menu-item active"><a href="home.html">Home</a></div>
+            <div class="menu-item"><a href="daftar-pekerjaan-baru.html">Daftar Pekerjaan Baru</a></div>
+            <div class="menu-item"><a href="pekerjaan-aktif.html">Pekerjaan Aktif</a></div>
+        </div>
+        <a href="index.html" class="logout-button">
+            <img src="styles/images/logout.png" alt="Logout">
+        </a>
+    </footer>
+
+    <script src="scripts/home.js"></script>
+</body>
+</html>

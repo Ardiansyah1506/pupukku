@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Karyawan</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <main class="main-content">
+            <h1>Daftar Karyawan</h1>
+            <table class="employee-table">
+                <thead>
+                    <tr>
+                        <th>NAMA</th>
+                        <th>STATUS</th>
+                        <th>RINCIAN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Slamet</td>
+                        <td>ON</td>
+                        <td><button class="detail-button" data-id="1">Detail</button></td>
+                    </tr>
+                    <tr>
+                        <td>Tejo</td>
+                        <td>OFF</td>
+                        <td><button class="detail-button inactive" disabled>Detail</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <!-- Modal Detail Karyawan -->
+    <div id="employeeModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>LAPORAN</h2>
+            <p><strong>Total Pupuk Dibawa:</strong> <span id="pupuk"></span></p>
+            <p><strong>Kendaraan:</strong> <span id="kendaraan"></span></p>
+            <p><strong>Tujuan:</strong> <span id="tujuan"></span></p>
+            <p><strong>Status:</strong> <span id="status"></span></p>
+            <button id="closeEmployeeModal" class="close-button">Close</button>
+        </div>
+    </div>
+
+    <footer class="bottom-menu">
+        <div class="menu-grid">
+            <div class="menu-item"><a href="tambah-pekerjaan-baru.html">Tambah Pekerjaan Baru</a></div>
+            <div class="menu-item"><a href="riwayat-pengiriman-pupuk.html">Riwayat Pengiriman Pupuk</a></div>
+            <div class="menu-item active"><a href="daftar-karyawan.html">Daftar Karyawan</a></div>
+            <div class="menu-item"><a href="daftar-penarikan-gaji.html">Daftar Penarikan Gaji</a></div>
+        </div>
+        <a href="index.html" class="logout-button">
+            <img src="styles/images/logout.png" alt="Logout">
+        </a>
+    </footer>
+
+    <script src="scripts/daftar-karyawan.js"></script>
+</body>
+</html>

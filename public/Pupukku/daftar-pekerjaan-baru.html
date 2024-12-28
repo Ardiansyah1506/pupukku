@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Pekerjaan Baru</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Daftar Pekerjaan -->
+    <div id="daftar-pekerjaan">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>TRUCK</th>
+            <th>NOPOL</th>
+            <th>ALAMAT KANDANG</th>
+            <th>LOKASI TUJUAN</th>
+            <th>TANGGAL</th>
+            <th>BANYAK / KARUNG</th>
+            <th>Verify</th>
+          </tr>
+        </thead>
+        <tbody id="pekerjaan-baru-list">
+          <tr>
+            <td>HINO</td>
+            <td>K 1234 AA</td>
+            <td>Mranggen</td>
+            <td>Dieng</td>
+            <td>17/12/2024</td>
+            <td>50</td>
+            <td><button class="btn-verify">Ya</button></td>
+          </tr>
+          <tr>
+            <td>CANTER</td>
+            <td>H 2222 BB</td>
+            <td>Kudus</td>
+            <td>Magelang</td>
+            <td>18/12/2024</td>
+            <td>60</td>
+            <td><button class="btn-verify">Ya</button></td>
+          </tr>
+          <tr>
+            <td>MITSUBISHI</td>
+            <td>K 1212 AB</td>
+            <td>Demak</td>
+            <td>Salatiga</td>
+            <td>19/12/2024</td>
+            <td>25</td>
+            <td><button class="btn-verify">Ya</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pop-up Rincian Pekerjaan -->
+    <div id="rincian-pekerjaan" class="modal hidden">
+      <div class="modal-content">
+        <h3>Rincian</h3>
+        <div id="detail-pekerjaan">
+          <p>Detail pekerjaan akan ditampilkan di sini.</p>
+        </div>
+        <button id="ambil-pekerjaan" class="confirm-button">Ambil</button>
+      </div>
+    </div>
+
+    <!-- Pop-up Peringatan -->
+    <div id="peringatan" class="modal hidden">
+      <div class="modal-content">
+        <h3>Peringatan !!</h3>
+        <p>Yakin ingin mengambil pekerjaan ini?</p>
+        <div class="popup-actions">
+          <button id="batal" class="close-button">Batal</button>
+          <button id="ya" class="confirm-button">Ya</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pop-up Sukses -->
+    <div id="pop-up-sukses" class="modal hidden">
+      <div class="modal-content">
+        <h3>Sukses!</h3>
+        <p>Pekerjaan berhasil diambil!</p>
+        <button id="continue" class="confirm-button">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bottom-menu">
+    <div class="menu-grid">
+      <div class="menu-item"><a href="home.html">Home</a></div>
+      <div class="menu-item active"><a href="daftar-pekerjaan-baru.html">Daftar Pekerjaan Baru</a></div>
+      <div class="menu-item"><a href="pekerjaan-aktif.html">Pekerjaan Aktif</a></div>
+    </div>
+    <a href="index.html" class="logout-button">
+      <img src="styles/images/logout.png" alt="Logout">
+    </a>
+  </footer>
+
+  <script src="scripts/daftar-pekerjaan-baru.js"></script>
+</body>
+</html>
