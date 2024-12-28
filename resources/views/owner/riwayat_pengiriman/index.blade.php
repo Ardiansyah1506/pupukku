@@ -108,7 +108,7 @@
                         </tr>
                         <tr>
                             <td>Upah Supir</td>
-                            <td>Rp. ${data.upahSupir}</td>
+                            <td>Rp. 50000</td>
                         </tr>
                     `;
 

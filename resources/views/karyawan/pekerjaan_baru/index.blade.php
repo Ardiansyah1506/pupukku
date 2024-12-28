@@ -10,6 +10,8 @@
 
 
 @section('content')
+@include('partials.modal')
+
     <div id="daftar-pekerjaan">
         <table class="table">
             <thead>
@@ -69,15 +71,6 @@
 
 
     
-    <!-- Pop-up Sukses -->
-    <div id="pop-up-sukses" class="modal hidden">
-        <div class="modal-content">
-          <h3>Sukses!</h3>
-          <p>Pekerjaan berhasil diambil!</p>
-          <button id="tutup-sukses" class="confirm-button">Continue</button>
-        </div>
-      </div>
-    </div>
 @endsection
 
 
@@ -142,15 +135,6 @@
                         }) // Kirim hanya ID
                     })
                     .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            popUpSukses.classList.remove('hidden');
-                            peringatan.classList.add('hidden');
-                            rincianPekerjaan.classList.add('hidden');
-                        } else {
-                            alert('Terjadi kesalahan: ' + data.message);
-                        }
-                    })
                     .catch(error => console.error('Error:', error));
             });
 

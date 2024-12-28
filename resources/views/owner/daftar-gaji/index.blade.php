@@ -6,7 +6,9 @@
 
 @section('css-custom')
 @endsection
+
 @section('content')
+@include('partials.modal')
     <div class="dashboard-container">
         <main class="main-content">
             <h1>Daftar Penarikan Gaji</h1>
@@ -26,9 +28,11 @@
                                 {{ $item->status == 0 ? 'Meminta Penarikan' : 'Terbayar' }}
                             </td>
                             <td>
-                                <button class="detail-button {{ $item->status == 0 ? 'inactive' : '' }}"
-                                    {{ $item->status == 0 ? '' : 'disabled' }} data-id="{{ $item->id }}">
-                                    {{ $item->status == 0 ? 'detail' : 'selesai' }}
+                                <button class="detail-button {{ $item->status == 0 ? '' : 'inactive' }}"
+                                    data-id="{{ $item->id }}"
+                                    {{ $item->status == 0 ? '' : 'disabled' }}
+                                    >
+                                    {{ $item->status == 0 ? 'Detail' : 'Selesai' }}
                                 </button>
                             </td>
                         </tr>
@@ -46,50 +50,53 @@
             <p><strong>Bank:</strong> <span id="bank"></span></p>
             <p><strong>No. Rek.:</strong> <span id="norek"></span></p>
             <p><strong>Gaji:</strong> <span id="gaji"></span></p>
-            <button id="closeModalButton" class="close-button">Close</button>
-            <button id="confirmButton" class="confirm-button">Kirim</button>
+            <button id="closeModalButton" class="close-button">Tutup</button>
+            <button id="confirmButton" class="confirm-button">Lanjut</button>
         </div>
     </div>
-    {{-- 
-<!-- Popup Success -->
-<div id="successPopup" class="popup hidden">
-    <div class="popup-content">
-        <span class="popup-icon">✔</span>
-        <h2>SUCCESS!</h2>
-        <p>Proses Pengiriman Upah Berhasil</p>
-        <button id="continueButton">Continue</button>
-    </div>
-</div> --}}
-@endsection
 
+    <!-- Modal Form Pengajuan -->
+    <div id="withdrawalFormModal" class="modal hidden">
+        <div class="modal-content">
+            <form action="{{ route('RiwayatPenarikan.bayar') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" id="id" name="id">
+                <label for="buktiTransfer">Bukti Transfer</label>
+                <input type="file" id="buktiTransfer" name="bukti_transfer" accept="image/*" required>
+
+                <button id="closeFormButton" type="button" class="close-button">Tutup</button>
+                <button type="submit" class="confirm-button">Kirim</button>
+            </form>
+        </div>
+    </div>
+@endsection
 
 @section('js-custom')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const detailButtons = document.querySelectorAll('.detail-button');
+            const detailButtons = document.querySelectorAll('.detail-button:not(.inactive)');
             const withdrawalModal = document.getElementById('withdrawalModal');
-            const successPopup = document.getElementById('successPopup');
-            const salaryTableBody = document.getElementById('salaryTableBody');
-
+            const withdrawalFormModal = document.getElementById('withdrawalFormModal');
             const closeModalButton = document.getElementById('closeModalButton');
             const confirmButton = document.getElementById('confirmButton');
-            const continueButton = document.getElementById('continueButton');
+            const closeFormButton = document.getElementById('closeFormButton');
 
             const namaSpan = document.getElementById('nama');
             const bankSpan = document.getElementById('bank');
             const norekSpan = document.getElementById('norek');
             const gajiSpan = document.getElementById('gaji');
+            const hiddenInputId = document.getElementById('id'); // Tangkap input hidden ID
 
             // Klik tombol Detail
             detailButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const id = this.getAttribute('data-id'); // Ambil ID pekerjaan aktif
+                    const id = this.getAttribute('data-id'); // Ambil data-id dari tombol
 
                     // Ambil data detail dari server
                     fetch(`/riwayat-penarikan/${id}`)
                         .then(response => {
                             if (!response.ok) {
-                                throw new Error('Data tidak ditemukan');
+                                throw new Error('Gagal mengambil data penarikan.');
                             }
                             return response.json();
                         })
@@ -99,36 +106,33 @@
                             norekSpan.textContent = data.norek;
                             gajiSpan.textContent = data.gaji;
 
-                            // Tampilkan modal
+                            // Isi input hidden dengan ID
+                            hiddenInputId.value = id;
+
+                            // Tampilkan modal detail
                             withdrawalModal.classList.remove('hidden');
                         })
                         .catch(error => {
                             console.error('Error fetching data:', error);
-                            alert('Terjadi kesalahan saat mengambil data karyawan.');
+                            alert('Terjadi kesalahan saat mengambil data detail.');
                         });
                 });
             });
 
-
-            // Klik tombol Close
+            // Klik tombol Close di modal detail
             closeModalButton.addEventListener('click', function() {
                 withdrawalModal.classList.add('hidden');
             });
 
-            // Klik tombol Kirim
+            // Klik tombol Lanjut di modal detail
             confirmButton.addEventListener('click', function() {
                 withdrawalModal.classList.add('hidden');
-                successPopup.classList.remove('hidden');
-
-                // Hapus baris dari tabel setelah kirim
-                const rowToRemove = document.querySelector(`.detail-button[data-id="${selectedId}"]`)
-                    .closest('tr');
-                rowToRemove.remove();
+                withdrawalFormModal.classList.remove('hidden');
             });
 
-            // Klik tombol Continue
-            continueButton.addEventListener('click', function() {
-                successPopup.classList.add('hidden');
+            // Klik tombol Close di modal form
+            closeFormButton.addEventListener('click', function() {
+                withdrawalFormModal.classList.add('hidden');
             });
         });
     </script>

@@ -11,7 +11,7 @@ body, html {
 .login-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content:space-around;
     min-height: 100vh;
     position: relative;
     padding: 20px;
@@ -20,11 +20,8 @@ body, html {
 
 /* Gambar ilustrasi */
 .login-image {
-    position: absolute;
     width: 546px;
     height: 546px;
-    left: 60px;
-    top: 60px;
     background: url('images/login-image.png') no-repeat center center;
     background-size: contain;
 }
@@ -37,7 +34,6 @@ body, html {
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    margin-left: auto; /* Agar form login tidak menumpuk pada gambar */
 }
 
 .login-form h1 {
@@ -147,20 +143,32 @@ body, html {
 
 /* Menu Navigasi Bawah (Grid) */
 .bottom-menu {
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    width: 100vw;
     display: flex;
     justify-content: space-between; /* Memberikan ruang antara grid dan tombol logout */
     align-items: center;
+    gap: 10px;
     background-color: #7B2CBF;
-    padding: 10px;
     border-top: 3px solid #5A189A;
 }
-
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Membagi menjadi 4 kolom */
-    gap: 10px; /* Memberikan jarak antar kotak */
-    flex: 1; /* Menu mengambil ruang yang tersedia */
+    padding: 10px;
+    gap: 10px; /* Jarak antar elemen */
+    flex: 1;
 }
+
+.menu-grid-4 {
+    grid-template-columns: repeat(4, 1fr); /* Membagi menjadi 4 kolom */
+}
+
+.menu-grid-5 {
+    grid-template-columns: repeat(5, 1fr); /* Membagi menjadi 5 kolom */
+}
+
 
 .menu-item {
     padding: 10px;

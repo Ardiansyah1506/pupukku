@@ -61,14 +61,12 @@
 
     @auth
         <footer class="bottom-menu">
-            <div class="menu-grid">
+            <div class="menu-grid {{ Auth::user()->role == 'pegawai' ? 'menu-grid-4' : 'menu-grid-5' }}">
                 @if (Auth::user()->role == 'pegawai')
-                    <div
-                        class="menu-item {{ Route::currentRouteName() == 'dashboard.index' ? 'active' : '' }}">
+                    <div class="menu-item {{ Route::currentRouteName() == 'dashboard.index' ? 'active' : '' }}">
                         <a href="{{ route('dashboard.index') }}">Home</a>
                     </div>
-                    <div
-                        class="menu-item {{ Route::currentRouteName() == 'RiwayatPenarikan.index' ? 'active' : '' }}">
+                    <div class="menu-item {{ Route::currentRouteName() == 'RiwayatPenarikan.index' ? 'active' : '' }}">
                         <a href="{{ route('RiwayatPenarikan.index') }}">Riwayat Penarikan Gaji</a>
                     </div>
                     <div
@@ -82,14 +80,17 @@
                     <div class="menu-item {{ Route::currentRouteName() == 'pekerjaan.index' ? 'active' : '' }}">
                         <a href="{{ route('pekerjaan.index') }}">Tambah Pekerjaan Baru</a>
                     </div>
+                    <div class="menu-item {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
+                        <a href="{{ route('user.index') }}">Manajemen Pegawai</a>
+                    </div>
                     <div class="menu-item {{ Route::currentRouteName() == 'laporan.index' ? 'active' : '' }}">
                         <a href="{{ route('laporan.index') }}">Riwayat Pengiriman Pupuk</a>
                     </div>
                     <div class="menu-item {{ Route::currentRouteName() == 'laporan.daftarKaryawan' ? 'active' : '' }}">
                         <a href="{{ Route('laporan.daftarKaryawan') }}">Daftar Karyawan</a>
                     </div>
-                    <div class="menu-item {{ Route::currentRouteName() == 'daftar.penarikan.gaji' ? 'active' : '' }}">
-                        <a href="">Daftar Penarikan Gaji</a>
+                    <div class="menu-item {{ Route::currentRouteName() == 'RiwayatPenarikan.DaftarGaji' ? 'active' : '' }}">
+                        <a href="{{ Route('RiwayatPenarikan.DaftarGaji') }}">Daftar Penarikan Gaji</a>
                     </div>
                 @endif
 
@@ -100,11 +101,17 @@
                     <img src="{{ asset('styles/images/logout.png') }}" alt="Logout">
                 </button>
             </form>
-            
         </footer>
     @endauth
     <script src="{{ asset('scripts/script.js') }}"></script>
+    <script>
+        const continueButton = document.getElementById('continueButton');
+        continueButton.addEventListener('click', function() {
+            successPopup.classList.add('hidden');
+        });
+    </script>
     @yield('js-custom')
+
 </body>
 
 </html>

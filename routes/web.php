@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PekerjaanAktifController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\RiwayatPenarikanController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -22,11 +23,16 @@ Route::middleware('auth')->group(function(){
     Route::group(['prefix' => '/riwayat-penarikan', 'as' => 'RiwayatPenarikan.', 'controller' => RiwayatPenarikanController::class], function () {
         Route::get('/', 'index')->name('index');
         Route::get('/daftar', 'DaftarGaji')->name('DaftarGaji');
+        Route::post('/bayar', 'bayar')->name('bayar');
         Route::get('/{id}', 'show')->name('show');
     });
     Route::group(['prefix' => '/dashboard', 'as' => 'dashboard.', 'controller' => DashboardController::class], function () {
         Route::get('/', 'index')->name('index');
         Route::post('/PengajuanGaji', 'PengajuanGaji')->name('PengajuanGaji');
+    });
+    Route::group(['prefix' => '/manajemen-user', 'as' => 'user.', 'controller' => UserController::class], function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
     });
   
     Route::group(['prefix' => '/pekerjaan', 'as' => 'pekerjaan.', 'controller' => PekerjaanController::class], function () {

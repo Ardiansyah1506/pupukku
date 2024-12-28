@@ -22,7 +22,7 @@
                     @foreach ($data as $item)
                         <tr>
                             <td>{{ $item->username }}</td>
-                            <td>{{ $item->status == 0 ? 'ON' : 'OFF' }}</td>
+                            <td>{{ $item->status == 0 ? 'OFF' : 'ON' }}</td>
                             <td>
                                 <button class="detail-button {{ $item->status == 0 ? 'inactive' : '' }}"
                                     {{ $item->status == 0 ? 'disabled' : '' }} data-id="{{ $item->pekerjaan_aktif_id }}">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DaftarGaji;
 use App\Models\LaporanPengiriman;
 use App\Models\PekerjaanAktif;
 use App\Models\User;
@@ -80,18 +81,35 @@ class LaporanController extends Controller
         $idUser = Auth::user()->id;
 
         if ($request->hasFile('file')) {
-            $imagePath = $request->file('file')->store('styles/images/bukti_pengiriman', 'public'); // Simpan ke folder
             $fileName = $request->file->getClientOriginalName(); // Ambil nama asli file
+            $imagePath = $request->file('file')->storeAs('images/bukti_pengiriman',$fileName, 'public'); // Simpan ke folder
         } else {
             return back()->withErrors(['file' => 'File harus berupa gambar.']);
         }
 
+        $pekerjaanAktif = PekerjaanAktif::where('id_pekerjaan', $idPekerjaan)->first();
+
+        if ($pekerjaanAktif) {
+            $pekerjaanAktif->status = 1; // Set status menjadi 1
+            $pekerjaanAktif->save();    // Simpan perubahan ke database
+        }
+        $checkGaji = DaftarGaji::where('id_user', $idUser)->first();
+        if ($checkGaji) {
+            // Update total gaji jika data sudah ada
+            $checkGaji->increment('total_gaji', 50000);
+        } else {
+            // Buat data baru jika belum ada
+            DaftarGaji::create([
+                'total_gaji' => 50000,
+                'id_user' => $idUser,
+            ]);
+        }
         // Simpan data ke database (contoh)
         LaporanPengiriman::create([
             'uang_makan' => $request->makan,
             'uang_bensin' => $request->bensin,
             'uang_tol' => $request->tol,
-            'file' => $request->fileName,
+            'file' => $fileName,
             'id_pekerjaan' => $idPekerjaan,
             'id_user' => $idUser,
         ]);

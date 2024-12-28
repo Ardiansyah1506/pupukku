@@ -9,16 +9,7 @@
 @endsection
 
 @section('content')
-@if(session('success'))
-<div id="successPopup" class="popup">
-    <div class="popup-content">
-        <span class="popup-icon">✔</span>
-        <h2>SUCCESS!</h2>
-        <p>{{ session('success') }}</p>
-        <button id="continueButton" type="button">Continue</button>
-    </div>
-</div>
-@endif
+@include('partials.modal')
 
 <div class="dashboard-container">
     <main class="main-content">
