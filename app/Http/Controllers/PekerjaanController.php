@@ -14,33 +14,57 @@ class PekerjaanController extends Controller
         return view('owner.tambah-pekerjaan.index');
     }
 
-    public function DaftarPekerjaanBaru(){
-        $data = Pekerjaan::where('status',0)->get();
-        return view('karyawan.pekerjaan_baru.index',compact('data'));
+    public function DaftarPekerjaanBaru()
+    {
+        $data = Pekerjaan::where('status', 0)->get();
+        return view('karyawan.pekerjaan_baru.index', compact('data'));
     }
 
     public function ambilPekerjaan(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer'
+            'id' => 'required|integer',
         ]);
+    
         $idUser = Auth::user()->id;
-
+    
         try {
             $pekerjaanId = $request->input('id');
-
-            // Contoh proses: Update status pekerjaan berdasarkan ID
+    
+            // Periksa apakah user sudah memiliki pekerjaan aktif dengan status 0
+            $existingPekerjaanAktif = PekerjaanAktif::where('id_user', $idUser)
+                ->where('status', 0)
+                ->first();
+    
+            if ($existingPekerjaanAktif) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Gagal Mengambil Pekerjaan. Selesaikan Pekerjaan Aktif terlebih dahulu.'
+                ]);
+            }
+    
+            // Update status pekerjaan berdasarkan ID
             Pekerjaan::findOrFail($pekerjaanId)->update(['status' => 1]);
+    
+            // Tambahkan pekerjaan ke tabel pekerjaan aktif
             PekerjaanAktif::create([
                 'id_pekerjaan' => $pekerjaanId,
                 'id_user' => $idUser,
             ]);
-            return response()->json(['success' => true, 'message' => 'Pekerjaan berhasil diambil']);
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Pekerjaan berhasil diambil.'
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ]);
         }
     }
-
+    
+    
     public function store(Request $request)
     {
         $request->validate([

@@ -10,8 +10,6 @@
 
 
 @section('content')
-@include('partials.modal')
-
     <div id="daftar-pekerjaan">
         <table class="table">
             <thead>
@@ -70,78 +68,104 @@
     </div>
 
 
+    <div id="successPopup" class="popup hidden">
+        <div class="popup-content">
+            <span class="popup-icon">✔</span>
+            <h2>SUCCESS!</h2>
+            <p id="successMessage"></p>
+            <button id="continueSuccessButton" type="button">Continue</button>
+        </div>
+    </div>
+    
+    <div id="warningPopup" class="popup hidden">
+        <div class="popup-content">
+            <span class="popup-icon">!</span>
+            <h2>Warning</h2>
+            <p id="warningMessage"></p>
+            <button id="continueWarningButton" type="button">Close</button>
+        </div>
+    </div>
     
 @endsection
 
 
 @section('js-custom')
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const daftarPekerjaan = document.getElementById('daftar-pekerjaan');
-            const rincianPekerjaan = document.getElementById('rincian-pekerjaan');
-            const peringatan = document.getElementById('peringatan');
-            const popUpSukses = document.getElementById('pop-up-sukses');
-            const pekerjaanBaruList = document.getElementById('pekerjaan-baru-list');
-            const detailPekerjaan = document.getElementById('detail-pekerjaan');
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const pekerjaanBaruList = document.getElementById('pekerjaan-baru-list');
+    const rincianPekerjaan = document.getElementById('rincian-pekerjaan');
+    const detailPekerjaan = document.getElementById('detail-pekerjaan');
+    const successPopup = document.getElementById('successPopup');
+    const warningPopup = document.getElementById('warningPopup');
+    const successMessage = document.getElementById('successMessage');
+    const warningMessage = document.getElementById('warningMessage');
+    const continueSuccessButton = document.getElementById('continueSuccessButton');
+    const continueWarningButton = document.getElementById('continueWarningButton');
 
-            let selectedRow = null;
+    // Tutup success pop-up
+    continueSuccessButton.addEventListener('click', () => {
+        successPopup.classList.add('hidden');
+        window.location.reload();
+    });
 
-            pekerjaanBaruList.addEventListener('click', (event) => {
-                if (event.target.classList.contains('btn-verify')) {
-                    const row = event.target.closest('tr');
-                    selectedRow = row;
-                    const pekerjaanId = event.target.dataset.id;
+    // Tutup warning pop-up
+    continueWarningButton.addEventListener('click', () => {
+        warningPopup.classList.add('hidden');
+    });
 
-                    const detailsHTML = `
-            <p>Kendaraan: ${row.cells[0].innerText}</p>
-            <p>Nopol: ${row.cells[1].innerText}</p>
-            <p>Alamat Kandang: ${row.cells[2].innerText}</p>
-            <p>Lokasi Tujuan: ${row.cells[3].innerText}</p>
-            <p>Tanggal: ${row.cells[4].innerText}</p>
-            <p>Banyak/Karung: ${row.cells[5].innerText}</p>
-        `;
-                    detailPekerjaan.innerHTML = detailsHTML;
+    pekerjaanBaruList.addEventListener('click', (event) => {
+        if (event.target.classList.contains('btn-verify')) {
+            const row = event.target.closest('tr');
+            const pekerjaanId = event.target.dataset.id;
 
-                    // Simpan ID pekerjaan di atribut data untuk pengiriman
-                    detailPekerjaan.dataset.pekerjaanId = pekerjaanId;
+            // Tampilkan detail pekerjaan
+            const detailsHTML = `
+                <p>Kendaraan: ${row.cells[0].innerText}</p>
+                <p>Nopol: ${row.cells[1].innerText}</p>
+                <p>Alamat Kandang: ${row.cells[2].innerText}</p>
+                <p>Lokasi Tujuan: ${row.cells[3].innerText}</p>
+                <p>Tanggal: ${row.cells[4].innerText}</p>
+                <p>Banyak/Karung: ${row.cells[5].innerText}</p>
+            `;
+            detailPekerjaan.innerHTML = detailsHTML;
 
-                    rincianPekerjaan.classList.remove('hidden');
-                }
-            });
+            // Simpan ID pekerjaan untuk dikirim
+            detailPekerjaan.dataset.pekerjaanId = pekerjaanId;
+            rincianPekerjaan.classList.remove('hidden');
+        }
+    });
 
+    document.getElementById('ambil-pekerjaan').addEventListener('click', () => {
+        rincianPekerjaan.classList.add('hidden');
+        const pekerjaanId = detailPekerjaan.dataset.pekerjaanId;
 
-            document.getElementById('ambil-pekerjaan').addEventListener('click', () => {
-                rincianPekerjaan.classList.add('hidden');
-                peringatan.classList.remove('hidden');
-            });
-
-            document.getElementById('batal').addEventListener('click', () => {
-                peringatan.classList.add('hidden');
-            });
-
-            document.getElementById('ya').addEventListener('click', () => {
-                const pekerjaanId = detailPekerjaan.dataset.pekerjaanId;
-
-                // Kirim data ke controller melalui fetch
-                fetch('{{ Route('pekerjaan.ambilPekerjaan') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                .getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            id: pekerjaanId
-                        }) // Kirim hanya ID
-                    })
-                    .then(response => response.json())
-                    .catch(error => console.error('Error:', error));
-            });
-
-            document.getElementById('tutup-sukses').addEventListener('click', () => {
-                window.location.reload(); // Segarkan halaman
-            });
-
+        // Kirim data ke server menggunakan fetch
+        fetch('{{ route('pekerjaan.ambilPekerjaan') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                id: pekerjaanId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                successMessage.innerText = data.message;
+                successPopup.classList.remove('hidden'); // Tampilkan success pop-up
+            } else {
+                warningMessage.innerText = data.message;
+                warningPopup.classList.remove('hidden'); // Tampilkan warning pop-up
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error.message);
+            alert('Terjadi kesalahan: ' + error.message);
         });
-    </script>
+    });
+});
+
+</script>
 @endsection
