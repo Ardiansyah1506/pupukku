@@ -11,6 +11,7 @@
         justify-content: space-between;
         align-items: center;
     }
+   
 </style>
 @endsection
 
@@ -38,8 +39,12 @@
                     @endforeach
                 </tbody>
             </table>
+    
+            <!-- Navigasi Pagination -->
+            @include('partials.paginate')
         </main>
     </div>
+    
 
     <!-- Modal Form Tambah User -->
     <div id="withdrawalFormModal" class="modal hidden">

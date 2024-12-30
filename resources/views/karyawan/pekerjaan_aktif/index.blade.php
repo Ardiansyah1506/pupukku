@@ -45,8 +45,9 @@
                     </tr>
                 @endforelse
             </tbody>
-            </tbody>
+        
         </table>
+       @include('partials.paginate')
     </div>
 
     <!-- Popup Konfirmasi -->

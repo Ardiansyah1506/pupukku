@@ -50,6 +50,36 @@
                 border-radius: 5px;
                 cursor: pointer;
             }
+
+            .pagination {
+                display: flex;
+                justify-content: end;
+                align-items: center;
+            }
+
+            .pagination a,
+            .pagination span {
+                padding: 5px 10px;
+                text-decoration: none;
+                border: 1px solid #ccc;
+                color: #333;
+                border-radius: 3px;
+            }
+
+            .pagination a:hover {
+                background-color: #f0f0f0;
+            }
+
+            .pagination .active {
+                background-color: #7B2CBF;
+                color: #fff;
+                pointer-events: none;
+            }
+
+            .pagination .disabled {
+                color: #ccc;
+                pointer-events: none;
+            }
         </style>
     @endauth
     @yield('css-custom')
@@ -89,7 +119,8 @@
                     <div class="menu-item {{ Route::currentRouteName() == 'laporan.daftarKaryawan' ? 'active' : '' }}">
                         <a href="{{ Route('laporan.daftarKaryawan') }}">Daftar Karyawan</a>
                     </div>
-                    <div class="menu-item {{ Route::currentRouteName() == 'RiwayatPenarikan.DaftarGaji' ? 'active' : '' }}">
+                    <div
+                        class="menu-item {{ Route::currentRouteName() == 'RiwayatPenarikan.DaftarGaji' ? 'active' : '' }}">
                         <a href="{{ Route('RiwayatPenarikan.DaftarGaji') }}">Daftar Penarikan Gaji</a>
                     </div>
                 @endif

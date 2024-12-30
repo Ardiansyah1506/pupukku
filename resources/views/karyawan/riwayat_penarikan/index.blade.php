@@ -51,7 +51,7 @@
                     @endforelse
                 </tbody>
             </table>
-            
+            @include('partials.paginate')
         </main>
     </div>
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(){
-        $data = User::where('role','!=','owner')->get();
+        $data = User::where('role', '!=', 'owner')->paginate(5); // Menampilkan 10 data per halaman
         return view('owner.user.index',compact('data'));
     }
 

@@ -26,7 +26,7 @@ class LaporanController extends Controller
         ->join('pekerjaan_aktif', 'laporan_pengiriman.id_pekerjaan', '=', 'pekerjaan_aktif.id')
         ->join('pekerjaan', 'pekerjaan_aktif.id_pekerjaan', '=', 'pekerjaan.id')
         ->join('users', 'users.id', '=', 'pekerjaan_aktif.id_user')
-        ->get();
+        ->paginate(5);
     
 
         return view('owner.riwayat_pengiriman.index',compact('data'));
@@ -41,7 +41,7 @@ class LaporanController extends Controller
             \DB::raw('(SELECT id FROM pekerjaan_aktif WHERE pekerjaan_aktif.id_user = users.id AND pekerjaan_aktif.status = 1 LIMIT 1) AS pekerjaan_aktif_id')
         )
         ->groupBy('users.id', 'users.username')
-        ->get();
+        ->paginate(5);
 
         return view('owner.daftar-karyawan.index',compact('data'));
     

@@ -27,14 +27,14 @@ class RiwayatPenarikanController extends Controller
         }
 
         // Ambil pengajuan gaji berdasarkan daftar gaji
-        $data = PengajuanGaji::where('id_daftar_gaji', $dataGaji->id)->get();
+        $data = PengajuanGaji::where('id_daftar_gaji', $dataGaji->id)->paginate(5);
 
         return view('karyawan.riwayat_penarikan.index', compact('data'));
     }
 
     public function DaftarGaji()
     {
-        $data = PengajuanGaji::get();
+        $data = PengajuanGaji::paginate(5);
 
         return view('owner.daftar-gaji.index', compact('data'));
     }
